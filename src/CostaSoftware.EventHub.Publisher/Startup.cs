@@ -1,3 +1,4 @@
+using Azure.Messaging.EventHubs.Producer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +33,12 @@ namespace CostaSoftware.EventHub.Publisher
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CostaSoftware.EventHub.Publisher", Version = "v1" });
             });
+
+            services.AddSingleton<EventHubProducerClient>((IServiceProvider) => {
+                return new EventHubProducerClient(Configuration.GetValue<string>("EventHubConnectionString"), new EventHubProducerClientOptions() { Identifier = "testingId" });
+            });
+
+            services.AddSingleton<Random>(new Random());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

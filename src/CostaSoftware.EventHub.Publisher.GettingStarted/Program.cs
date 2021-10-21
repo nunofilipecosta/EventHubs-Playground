@@ -33,6 +33,7 @@ namespace CostaSoftware.EventHub.Publisher.GettingStarted
             var producer = new EventHubProducerClient(connectionString, eventHubName, producerOption);
             //await DisplayProducerProperties(producer);
             
+            
 
             // properties of the EventHubConsumerClient
             var consumerOption = new EventHubConsumerClientOptions();

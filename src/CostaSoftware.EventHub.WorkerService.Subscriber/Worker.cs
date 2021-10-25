@@ -150,7 +150,23 @@ namespace CostaSoftware.EventHub.WorkerService.Subscriber
 
 
                 Console.WriteLine($"Event : { Encoding.UTF8.GetString(eventBody) }.");
-                Console.WriteLine($"Event from partition { partition } with length { eventBody.Length }.");
+
+                Console.WriteLine($"Properties");
+                foreach (var item in args.Data.Properties)
+                {
+                    Console.WriteLine($"{item.Key} - {item.Value}");
+                }
+
+                Console.WriteLine($"System Properties");
+                foreach (var item in args.Data.SystemProperties)
+                {
+                    Console.WriteLine($"{item.Key} - {item.Value}");
+                }
+
+                Console.WriteLine($"Content Type : {args.Data.ContentType}");
+                Console.WriteLine($"CorrelationId : {args.Data.CorrelationId}");
+                Console.WriteLine($"Messageid : {args.Data.MessageId}");
+
                 await args.UpdateCheckpointAsync();
 
                 //int eventsSinceLastCheckpoint = partitionEventCount.AddOrUpdate(

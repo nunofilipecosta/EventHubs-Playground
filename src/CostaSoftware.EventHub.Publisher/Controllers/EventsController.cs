@@ -45,6 +45,9 @@ namespace CostaSoftware.EventHub.Publisher.Controllers
                 eventData.Properties.Add("EventType", "com.microsoft.samples.hello-event");
                 eventData.Properties.Add("priority", 1);
                 eventData.Properties.Add("score", 9.0);
+                eventData.ContentType = "application/json";
+                eventData.CorrelationId = "publisherId";
+                eventData.MessageId = "messageId";
 
                 if (!eventDataBatch.TryAdd(eventData))
                 {

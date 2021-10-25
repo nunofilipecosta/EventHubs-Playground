@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CostaSoftware.EventHub.Publisher.Controllers
@@ -37,8 +38,8 @@ namespace CostaSoftware.EventHub.Publisher.Controllers
                 ////createBatchOptions.PartitionKey = "testingPartion";
 
                 using EventDataBatch eventDataBatch = await producerClient.CreateBatchAsync(createBatchOptions);
-                var eventBody = new BinaryData($"Event Number : {random.Next(1, 100)}");
-                eventData = new EventData(eventBody);
+
+                eventData = new EventData(Encoding.UTF8.GetBytes($"Event Number : {random.Next(1, 100)}"));
 
                 // Custom Metadata
                 eventData.Properties.Add("EventType", "com.microsoft.samples.hello-event");
@@ -56,10 +57,7 @@ namespace CostaSoftware.EventHub.Publisher.Controllers
             {
                 throw;
             }
-            finally
-            {
-                await producerClient.CloseAsync();
-            }
+            
 
             return Ok(eventData.EventBody.ToString());
 

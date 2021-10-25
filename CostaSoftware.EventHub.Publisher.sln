@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CostaSoftware.EventHub.Publisher.GettingStarted", "src\CostaSoftware.EventHub.Publisher.GettingStarted\CostaSoftware.EventHub.Publisher.GettingStarted.csproj", "{5EA2CEBF-0857-4584-B49B-F69181F24267}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CostaSoftware.EventHub.Publisher", "src\CostaSoftware.EventHub.Publisher\CostaSoftware.EventHub.Publisher.csproj", "{4499CA12-56DC-4145-892C-ADC564DC29B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CostaSoftware.EventHub.Publisher", "src\CostaSoftware.EventHub.Publisher\CostaSoftware.EventHub.Publisher.csproj", "{4499CA12-56DC-4145-892C-ADC564DC29B1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D2FA8EBB-AEA5-464B-A77A-6FFEF3D307F3}"
 	ProjectSection(SolutionItems) = preProject
@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 		start.ps1 = start.ps1
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PubSub", "PubSub", "{E47F1624-275A-4C55-B5D9-75749A5C0681}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CostaSoftware.EventHub.WorkerService.Subscriber", "src\CostaSoftware.EventHub.WorkerService.Subscriber\CostaSoftware.EventHub.WorkerService.Subscriber.csproj", "{39CC7811-601E-4DB0-B910-76E9CA71FF29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,9 +32,17 @@ Global
 		{4499CA12-56DC-4145-892C-ADC564DC29B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4499CA12-56DC-4145-892C-ADC564DC29B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4499CA12-56DC-4145-892C-ADC564DC29B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39CC7811-601E-4DB0-B910-76E9CA71FF29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39CC7811-601E-4DB0-B910-76E9CA71FF29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39CC7811-601E-4DB0-B910-76E9CA71FF29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39CC7811-601E-4DB0-B910-76E9CA71FF29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4499CA12-56DC-4145-892C-ADC564DC29B1} = {E47F1624-275A-4C55-B5D9-75749A5C0681}
+		{39CC7811-601E-4DB0-B910-76E9CA71FF29} = {E47F1624-275A-4C55-B5D9-75749A5C0681}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B3652F86-CFEA-4585-BF98-E0E55E15E029}

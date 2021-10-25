@@ -185,7 +185,7 @@ namespace CostaSoftware.EventHub.Publisher.GettingStarted
 
         private Task Processor_PartitionInitializingAsync(PartitionInitializingEventArgs args)
         {
-            EventPosition startPositionWhenNoCheckpoint = EventPosition.FromEnqueuedTime(DateTimeOffset.UtcNow);
+            EventPosition startPositionWhenNoCheckpoint = EventPosition.Earliest;
             args.DefaultStartingPosition = startPositionWhenNoCheckpoint;
 
             return Task.CompletedTask;

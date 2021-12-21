@@ -29,9 +29,9 @@ namespace CostaSoftware.EventHub.WorkerService.Subscriber
                     var blobStorageConnectionString = blobStorage.Where(c => c.Key.Equals("ConnectionString")).FirstOrDefault().Value;
                     var container = blobStorage.Where(c => c.Key.Equals("Container")).FirstOrDefault().Value;
 
-                    services.AddHostedService<Worker>();
+                    services.AddHostedService<SubscriberWorker>();
                     BlobContainerClient blobContainerClient = new BlobContainerClient(blobStorageConnectionString, container);
-                    var eventProcessorClientOptions = new EventProcessorClientOptions() { Identifier = "testing" };
+                    var eventProcessorClientOptions = new EventProcessorClientOptions() { ConnectionOptions = new EventHubConnectionOptions() { TransportType = EventHubsTransportType.AmqpWebSockets } };
                     services.AddSingleton<EventProcessorClient>(new EventProcessorClient(blobContainerClient, consumerGroup, eventHubConnectionString, eventProcessorClientOptions));
                 });
     }

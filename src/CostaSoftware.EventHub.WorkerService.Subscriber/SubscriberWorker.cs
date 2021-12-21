@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace CostaSoftware.EventHub.WorkerService.Subscriber
 {
-    public class Worker : BackgroundService
+    public class SubscriberWorker : BackgroundService
     {
-        private readonly ILogger<Worker> _logger;
+        private readonly ILogger<SubscriberWorker> _logger;
         private readonly EventProcessorClient _eventProcessorClient;
 
-        public Worker(ILogger<Worker> logger, EventProcessorClient eventProcessorClient)
+        public SubscriberWorker(ILogger<SubscriberWorker> logger, EventProcessorClient eventProcessorClient)
         {
             _logger = logger;
             _eventProcessorClient = eventProcessorClient;
@@ -95,11 +95,11 @@ namespace CostaSoftware.EventHub.WorkerService.Subscriber
 
         private Task Processor_PartitionInitializingAsync(PartitionInitializingEventArgs args)
         {
-            Console.WriteLine($"Processor_PartitionInitializingAsync : {args.DefaultStartingPosition}");
+            //Console.WriteLine($"Processor_PartitionInitializingAsync : {args.DefaultStartingPosition}");
             Console.WriteLine($"Processor_PartitionInitializingAsync : {args.PartitionId}");
 
-            EventPosition startPositionWhenNoCheckpoint = EventPosition.Earliest;
-            args.DefaultStartingPosition = startPositionWhenNoCheckpoint;
+            //EventPosition startPositionWhenNoCheckpoint = EventPosition.Earliest;
+            //args.DefaultStartingPosition = startPositionWhenNoCheckpoint;
 
             return Task.CompletedTask;
         }
@@ -149,7 +149,7 @@ namespace CostaSoftware.EventHub.WorkerService.Subscriber
 
 
 
-                Console.WriteLine($"Event : { Encoding.UTF8.GetString(eventBody) }.");
+                Console.WriteLine($"Event received: { Encoding.UTF8.GetString(eventBody) } from partition {args.Partition.PartitionId}");
 
                 Console.WriteLine($"Properties");
                 foreach (var item in args.Data.Properties)
@@ -165,7 +165,8 @@ namespace CostaSoftware.EventHub.WorkerService.Subscriber
 
                 Console.WriteLine($"Content Type : {args.Data.ContentType}");
                 Console.WriteLine($"CorrelationId : {args.Data.CorrelationId}");
-                Console.WriteLine($"Messageid : {args.Data.MessageId}");
+                Console.WriteLine($"MessageId : {args.Data.MessageId}");
+                Console.WriteLine($"PartitionKey : {args.Data.PartitionKey}");
 
                 await args.UpdateCheckpointAsync();
 

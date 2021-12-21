@@ -106,7 +106,7 @@ namespace CostaSoftware.EventHub.Publisher.GettingStarted
         private static async Task ProduceEvents(EventHubProducerClient producer, bool useParticionKey = false)
         {
             try
-            {
+            { 
                 // using ParticionId
                 string firstPartition = (await producer.GetPartitionIdsAsync()).First();
                 var specificPartionBatchOption = new CreateBatchOptions() { PartitionId = firstPartition };

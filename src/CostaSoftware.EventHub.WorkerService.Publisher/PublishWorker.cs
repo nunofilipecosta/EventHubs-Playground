@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace CostaSoftware.EventHub.WorkerService.Publisher
 {
-    public class Worker : BackgroundService
+    public class PublishWorker : BackgroundService
     {
-        private readonly ILogger<Worker> _logger;
+        private readonly ILogger<PublishWorker> _logger;
         private readonly EventHubProducerClient eventHubProducerClient;
 
-        public Worker(ILogger<Worker> logger, EventHubProducerClient eventHubProducerClient)
+        public PublishWorker(ILogger<PublishWorker> logger, EventHubProducerClient eventHubProducerClient)
         {
             _logger = logger;
             this.eventHubProducerClient = eventHubProducerClient;
@@ -29,8 +29,13 @@ namespace CostaSoftware.EventHub.WorkerService.Publisher
             {
                 using EventDataBatch eventDataBatch = await eventHubProducerClient.CreateBatchAsync(new CreateBatchOptions() { });
                 var eventData = new EventData(Encoding.UTF8.GetBytes($"Event Number : {random.Next(1, 100)} at time : {DateTime.Now.ToShortTimeString()}"));
+                if (!eventDataBatch.TryAdd(eventData))
+                {
+                    break;
+                }
 
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                await eventHubProducerClient.SendAsync(eventDataBatch);
+                _logger.LogInformation($"Event sent : {eventData.EventBody.ToString()}");
                 await Task.Delay(1000, stoppingToken);
             }
         }

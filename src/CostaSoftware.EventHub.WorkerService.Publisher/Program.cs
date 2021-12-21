@@ -19,11 +19,9 @@ namespace CostaSoftware.EventHub.WorkerService.Publisher
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddHostedService<Worker>();
+                    services.AddHostedService<PublishWorker>();
 
-                    var eventHubConfig = hostContext.Configuration.GetSection("EventHub").GetChildren().ToList();
-                    var eventHubConnectionString = eventHubConfig.Where(c => c.Key.Equals("ConnectionString")).FirstOrDefault().Value;
-                    var eventHub = eventHubConfig.Where(c => c.Key.Equals("EventHub")).FirstOrDefault().Value;
+                    var eventHubConnectionString = hostContext.Configuration["EventHubConnectionString"];
 
                     services.AddSingleton<EventHubProducerClient>((IServiceProvider) => {
                         return new EventHubProducerClient(eventHubConnectionString, new EventHubProducerClientOptions() { Identifier = "testingId" });
